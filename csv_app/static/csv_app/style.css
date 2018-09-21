@@ -1,0 +1,255 @@
+
+  /******************************  INDEX2.html  *********************************/
+
+  /* 1. Conserved Species , Bind type : css the check lists */
+  .drone { border:0px solid #ccc; width:130px; height: 230px; overflow-y: scroll; }
+
+
+  /* 2. UTR button , Exon button , Statistics button , Result h2 header ---> css visibility */
+  .my-hidden-btns{
+    visibility: hidden;
+  }
+  #h2-result{
+    visibility: hidden;
+  }
+
+#help_tab{
+  position: absolute;
+  top: 270px;
+  left: 100px;
+}
+
+.color_divs{
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+}
+
+
+  /* 3. pop-up Statistics Window*/
+  /* The Modal (background) */
+  #myModal {
+      display: none; /* Hidden by default */
+      position: fixed; /* Stay in place */
+      z-index: 1; /* Sit on top */
+      padding-top: 100px; /* Location of the box */
+      left: 0;
+      top: 0;
+      width: 100%; /* Full width */
+      height: 100%; /* Full height */
+      overflow: auto; /* Enable scroll if needed */
+      background-color: rgb(0,0,0); /* Fallback color */
+      background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+
+  /* Modal Content */
+  #modal-cont {
+      background-color: #fefefe;
+      margin: auto;
+      padding: 20px;
+      border: 7px solid #888;
+      width: 70%;
+  }
+
+  /* The Close Button */
+  #modal-close-bt {
+      /*color: #aaaaaa;*/
+      color: red;
+      float: right;
+      font-size: 20px;
+      font-weight: bold;
+  }
+
+  #modal-close-bt:hover,
+  #modal-close-bt:focus {
+      color: #000;
+      text-decoration: none;
+      cursor: pointer;
+  }
+
+
+  /******************************  HOME.html  *********************************/
+
+  #home-body {
+    background-color: Lavender;
+    padding-top: 10px;
+  }
+  #post-text{
+    font-size: 15px;
+  }
+  .header-font{
+    font-family:Times New Roman;
+  }
+  #logo-img {
+    float:none;
+    width: 70px;
+    height: 50px;
+  }
+  #myHeader{
+    width:90%;
+    margin:0 auto;
+    background: linear-gradient(white, blue);
+  }
+  #mySidebar{
+    background-color: Lavender;
+  }
+  #wait{
+    display:none;
+    width:69px;
+    height:89px;
+    /*solid black;*/
+    position:absolute;
+    top:50%;
+    left:50%;
+    padding:2px;
+  }
+
+
+  /************ tooltip **************/
+#tooltip #tooltiptext {
+    /*display: block; */
+    visibility: hidden;
+    width: 370px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+
+    /* bottom: 100%;
+    left: 50%;
+    margin-left: -60px; */
+    top: 100%;
+    left: 0%;
+    margin-left: -150px;
+
+    overflow: auto;
+
+    /* Fade in tooltip - takes 1 second to go from 0% to 100% opac: */
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+#tooltip {
+  position: absolute;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+#tooltip:hover #tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
+
+#tooltip-region #tooltiptext-region {
+    /*display: block; */
+    visibility: hidden;
+    width: 150px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+
+    bottom: 100%;
+    left: 50%;
+    margin-left: -60px;
+    /* top: 100%;
+    left: 0%;
+    margin-left: -150px; */
+
+    overflow: auto;
+
+    /* Fade in tooltip - takes 1 second to go from 0% to 100% opac: */
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+#tooltip-region {
+  position: absolute;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+#tooltip-region:hover #tooltiptext-region {
+    visibility: visible;
+    opacity: 1;
+}
+/****************** END TOOLTIP ****************************/
+
+
+.myTd {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+.myRows:nth-child(even) {
+    background-color: #c6c6c6;
+}
+
+.myTableHeader {
+  font-weight: bold;
+}
+
+.myTranscID:hover {
+    color: blue;
+}
+
+#navBar {
+  width: 300px;
+  margin: auto;
+}
+
+
+
+/* * {
+  margin: 0;
+  padding: 0;
+  text-align:center;
+} */
+
+
+/*
+#myTableID { */
+  /* color: green; */
+  /* font-size: 1em; */
+  /* font-weight: 300;
+  line-height: 40px;
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 500px;
+  margin: 50px auto;
+  box-shadow: 0 4px 8px 0 green
+  border-radius: 2px;
+} */
+
+
+#data tr {
+  display: none;
+}
+
+
+/********   Search input filter in Mirna Occasion   ********/
+#myInput {
+  /* src="{% static 'csv_app/logo.png' %}"  */
+  /* background-image: url('https://t5.rbxcdn.com/b0dd8641b99f9a0c64db02cd39a19fa9'); */
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  width: 100%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+
+
+/* #mirnaID-div{
+  position: absolute;
+  left: 30px;
+  top: 700px;
+  height: 800px;
+  width: 100%;
+  overflow-y: scroll;
+} */

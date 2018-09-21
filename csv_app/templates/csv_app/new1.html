@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+
+{% block body %}
+
+  <div class="container">
+    <h1>Search</h1>
+
+    <form  id="search" method="post" action="">{% csrf_token %}
+        <input type="text" name="q_search" placeholder="Search" value="{{ request.POST.q }}"/>
+        <input type="submit" id= "input-button" class="btn btn-primary" value="Search" onclick="CreateList()"/>
+    </form>
+
+    <a href="{% url 'csv_app:my_data_serialize' %}"><button>Button</button></a>
+    <button id="mybutton" type="submit" onclick="CreateList()"> Click me </button>
+  </div>
+
+
+<div id='output'>
+
+</div>
+
+  {% load static %}
+<!--  <script src="{% static "csv_app/sketch.js" %}" type="text/javascript"></script>-->
+
+{% endblock %}

@@ -1,0 +1,145 @@
+{% load staticfiles %}
+{% load static %}
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'csv_app/style.css' %}">
+<!--
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-red.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
+-->
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">-->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> -->
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-red.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
+
+    <script src="{% static "csv_app/p5.js" %}" type="text/javascript"></script>
+    <script src="{% static "csv_app/p5.dom.js" %}" type="text/javascript"></script>
+
+    {% block head %}
+    <title>Base</title>
+    {% endblock %}
+  </head>
+
+
+  <body>
+    <button disabled id='filter_button' class="w3-button w3-circle w3-xlarge w3-right w3-hover-blue with w3-hover-opacity" onclick="w3_open()">&#9776;</button>  <!--Filter Button on the Right Side-->
+    <!-- Sidebar -->
+    <div class="w3-sidebar w3-bar-block w3-animate-right" style="display:none; right:0; z-index:5" id="mySidebar">
+      <button class="w3-bar-item w3-button w3-medium" onclick="w3_close()">Close &times;</button>
+      <div class="w3-container">
+        <h3>Search-Filters</h3>
+        <form action="csv_app/my_data/" method="POST" id="post-form">{% csrf_token %}
+            <input style="width: 150px" type="text" id="post-text" name="q_search" placeholder="Search" value="{{ request.POST.q }}" />
+            <!--<input type="submit" id= "input-button2" class="btn btn-primary btn-md" value="Search"/>-->
+            <input type="submit" id= "input-button2" class="w3-btn w3-blue w3-round-medium w3-small" value="Search"/>
+
+            <br><br>
+
+            <label> Score threshold:
+              <input style="width: 150px;" id="score-field" type="text" name="q_score" placeholder="0.85" value="{{ request.GET.q_score }}"/>
+            </label>
+
+            <br><br>
+
+            <label>Binding site :
+              <select id = "site-field" name="q_site">
+                {% for choice in bind_sites %}
+                  <option value={{ choice }}> {{ choice }} </option>
+                {% endfor %}
+              </select>
+            </label>
+
+            <br><br>
+
+            <label> Conserved Species threshold :</label>
+            <input style="width: 190px;" id="conserved-species-field" type="text" name="q_conserved"  placeholder="# of conserved species" value="{{ request.GET.q_conserved }}"/>
+
+            <br><br>
+
+            <label>Conserved Species :</label>
+            <div class="drone">
+              {% for check in species %}
+                <input id="checkbox-field" type="checkbox" name="checkbox" value="{{ check }}" />  {{ check }}  <br />
+              {% endfor %}
+            </div>
+
+            <br><br>
+
+            <label>Binding type :</label>
+            <div class="" style="height: 180px; width:180px;">
+              {% for b_type in bind_types_list %}
+                <input id="checkbox-field2" type="checkbox" name="checkbox2" value="{{ b_type }}" />  {{ b_type }}  <br />
+              {% endfor %}
+            </div>
+            <br><br>
+        </form>
+      </div>
+    </div>
+    <!-- End Sidebar -->
+    <div class="w3-overlay w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" id="myOverlay"></div><!--Overlay while filter sidebar is opened-->
+
+
+    <header class=" w3-theme w3-padding-16 w3-round-xlarge w3-opacity-min" id="myHeader"> <!--RED HEADER  -->
+      <!--Logo and titles inside the red header-->
+      <div class="w3-center">
+        <img id='logo-img' src="{% static 'csv_app/logo.png' %}" />
+        <h2 class="w3-xlarge header-font">DIANA TOOLS</h2>
+        <h3 class="w3-animate-bottom header-font">microRNA - miTG Visualization</h3>
+          <div class="w3-padding-8">
+            <!--<button class="w3-btn w3-xlarge w3-dark-grey w3-hover-light-grey" onclick="document.getElementById('id01').style.display='block'" style="font-weight:400;">Visualize</button>-->
+          </div>
+      </div>
+    </header>
+
+    <!-- Navigation Bar - Menu -->
+    <div class="topnav" id='navBar'>
+      <!--<a class="active" href="/csv_app/home">Home</a>-->
+      <a href="/csv_app/home"><button class="w3-button w3-round-large">Home</button></a>
+      <a id='statistics-tab'><button disabled id='stats_button' class="w3-button w3-round-large">Statistics</button></a>
+      <a href="/csv_app/help"><button class="w3-button w3-round-large">Help</button></a>
+    </div>
+
+  </body>
+
+  {% block body %}
+    <h1>Base</h1>
+  {% endblock %}
+
+
+  <script>
+  function w3_open() {
+      document.getElementById("mySidebar").style.display = "block";
+      document.getElementById("myOverlay").style.display = "block";
+      document.getElementById("mySidebar").style.width = "25%";
+  }
+  function w3_close() {
+      document.getElementById("mySidebar").style.display = "none";
+      document.getElementById("myOverlay").style.display = "none";
+  }
+  </script>
+
+  <!--improvements for mobile version-->
+
+  <script
+  			  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  			  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  			  crossorigin="anonymous"></script>
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+      integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+      crossorigin="anonymous"></script>
+</html>

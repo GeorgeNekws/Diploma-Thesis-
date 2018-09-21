@@ -1,0 +1,95 @@
+
+{% load staticfiles %}
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+<body>
+
+<!-- Sidebar -->
+<div class="w3-sidebar w3-bar-block w3-animate-top w3-grey" style="display:none;z-index:5" id="mySidebar">
+  <button class="w3-bar-item w3-button w3-large" onclick="w3_close()">Close &times;</button>
+
+  <div class="w3-container">
+    <h2>Search</h2>
+    <form action="csv_app/my_data/" method="POST" id="post-form">{% csrf_token %}
+        <input type="text" id="post-text" name="q_search" placeholder="Search" value="{{ request.POST.q }}" />
+        <input type="submit" id= "input-button" class="btn btn-primary" value="Search"/>
+
+        <br><br>
+        <br><br>
+
+        <label style="font-size:15px;"> Score :
+          <input id="score-field" type="text" name="q_score"  placeholder="score" value="{{ request.GET.q_score }}"/>
+        </label>
+
+        <br><br>
+
+        <label>Binding site :
+          <select id = "site-field" name="q_site">
+            {% for choice in bind_sites %}
+              <option value={{ choice }}> {{ choice }} </option>
+            {% endfor %}
+          </select>
+        </label>
+
+        <br><br>
+
+        <label> Conserved Species :</label>
+        <input style="width: 190px;" id="conserved-species-field" type="text" name="q_conserved"  placeholder="# of conserved species" value="{{ request.GET.q_conserved }}"/>
+
+        <br><br>
+
+        <label>Conserved Species :</label>
+        <div class="drone">
+          {% for check in species %}
+            <input id="checkbox-field" type="checkbox" name="checkbox" value="{{ check }}" />  {{ check }}  <br />
+          {% endfor %}
+        </div>
+
+        <br><br>
+
+        <label>Binding type :</label>
+        <div class="drone" style="height: 100px;">
+          {% for b_type in bind_types_list %}
+            <input id="checkbox-field2" type="checkbox" name="checkbox2" value="{{ b_type }}" />  {{ b_type }}  <br />
+          {% endfor %}
+        </div>
+
+
+    </form>
+  </div>
+</div>
+
+<!-- Page Content -->
+<div class="w3-overlay w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" id="myOverlay"></div>
+
+<div>
+  <button class="w3-button w3-white w3-xlarge" onclick="w3_open()">&#9776;</button>
+
+  <div class="w3-container">
+    <h1>Sidebar Overlay</h1>
+    <p>The w3-overlay class can be used to create an overlay effect, when opening the sidebar. The w3-overlay class adds a black background with a 50% opacity to the "page content" - this effect will "highlight" the side navigation</p>
+    <p>Click on the "hamburger menu" to see the effect.</p>
+  </div>
+
+</div>
+
+<script>
+function w3_open() {
+    document.getElementById("mySidebar").style.display = "block";
+    document.getElementById("myOverlay").style.display = "block";
+    document.getElementById("mySidebar").style.width = "30%";
+}
+function w3_close() {
+    document.getElementById("mySidebar").style.display = "none";
+    document.getElementById("myOverlay").style.display = "none";
+}
+</script>
+
+</body>
+
+</html>

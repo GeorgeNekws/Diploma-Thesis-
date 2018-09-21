@@ -1,0 +1,42 @@
+<!--NOT IN USE-->
+
+{% block head %}
+<title>Gene Search</title>
+{% endblock %}
+
+
+{% block body %}
+
+<div class="container">
+    <h1>Search for Gene</h1>
+
+    {# search filters #}
+    <form  id="search" method="get" action="">
+        <input type="text" name="q_search" placeholder="Search" value="{{ request.GET.q }}"/>
+        <input type="submit" class="btn btn-primary" value="Search"/>
+    </form>
+
+
+  <div class="col-md-5">
+      {% for elem in data  %}
+
+        <form  id="form2" method="get" action="">
+            <ul>
+              <li><b>Gene ID :</b> {{elem.gene_id}}</li>
+              <li><b>Transcript ID :</b> {{elem.transcript_id}}</li>
+              <li><b>Exon ID :</b> {{elem.exon_id}}</li>
+              <li><b>Start site :</b> {{elem.start}}</li>
+              <li><b>Stop site :</b> {{elem.stop}}</li>
+            </ul>
+
+          {% empty %}
+          <p>Not found.</p>
+
+        </form>
+      {% endfor %}
+
+  </div>
+</div>
+</div>
+
+{% endblock %}

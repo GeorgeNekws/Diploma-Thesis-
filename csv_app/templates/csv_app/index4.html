@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+
+
+  <div class="col-md-3">
+  <h1>Transcript</h1>
+
+  <form  id="search" method="get" action="/csv_app/my_data/">
+      <input id="form" type="text" name="q_search" placeholder="Search" value="{{ request.GET.q }}"/>
+      <input id="input-button" type="submit" class="btn btn-primary" value="Search"/>
+
+      <br> <br>
+
+      <li>
+        <label> Score :
+          <input id="score-field" type="text" name="q_score"  placeholder="score" value="{{ request.GET.q_score }}"/>
+        </label>
+      </li>
+      <br>
+      <li>
+        <label>Bind site :
+          <select id = "site-field" name="q_site">
+            {% for choice in bind_sites %}
+              <option value={{ choice }}> {{ choice }} </option>
+            {% endfor %}
+          </select>
+        </label>
+      </li>
+      <br>
+
+
+      <style >
+        .drone { border:0px solid #ccc; width:130px; height: 230px; overflow-y: scroll; }
+      </style>
+
+      <li>
+        <label>Species :</label>
+        <div class="drone">
+          {% for check in species %}
+            <input id="checkbox-field" type="checkbox" name="checkbox" value="{{ check }}" />  {{ check }}  <br />
+          {% endfor %}
+        </div>
+      </li>
+
+
+  </form>
+
+</div>
+<!--<div class="container">
+  <div class="row">
+    <div class="col-md-7">
+        {% for elem in data  %}
+              <ul>
+                <li><b>Transcript ID :</b> {{elem.transcript_id}}</li>
+                <li><b>Mirna Name that bind to this transcript:</b> {{elem.mirna_name}}</li>
+                <li><b>Start bind site :</b> {{elem.bind_start}}</li>
+                <li><b>Stop bind site :</b> {{elem.bind_stop}}</li>
+              </ul>
+            {% if data %}
+              <p>Not found.</p>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div class="col-md-5">
+      {% if data %}
+        <p>data Defined</p>
+        <canvas id="myCanvas" width="200" height="100"
+          style="border:1px solid #c3c3c3;">
+        </canvas>
+      {% endif %}
+    </div>
+
+  </div>
+</div>-->
+
+
+
+{% load static %}
+<script src="{% static "csv_app/s3.js" %}" type="text/javascript"> </script>
+{% endblock %}

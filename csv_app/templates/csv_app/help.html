@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load static %}
+
+<html>
+  <head>
+    {% block head %}
+      <title>Help</title>
+    {% endblock %}
+  </head>
+
+
+  {% block body %}
+  <div id="help_tab">
+      <!-- <h2>help information & documentation</h2> -->
+
+      <br>
+      <h4>1) Explanation of search - filter components</h4>
+      <ul>
+        <li><b>Score (threshold):</b> The prediction score derived from DIANA microT-CDS algorithm. The higher the miTG score the higher the probability of targeting (measures the potency of each miRNA-gene interaction).</li>
+        <span>Only miRNA target genes (miTGs) with score higher than this threshold are shown.
+        </span>
+        <li><b>Binding Site:</b> The site on the mRNA, where the microRNAs are bound.</li>
+        <li><b>Number of Conserved Species (threshold):</b> The number of species in which the binding nucleotides of this target site are conserved.</li>
+        <li><b>Conserved Species:</b> The species in which the binding nucleotides of this target site are conserved.</li>
+        <li><b>Binding Type :</b> The number of nucleotides that bind in the first 9nt of the alignment and whether there are any G:U wobble pairs.</li>
+      </ul>
+
+      <br>
+
+      <h4>2) Default search values</h4>
+      <ul>
+        <li><b>Score threshold:</b> 0.85 </li>
+        <li><b>Bind Type:</b> 6mer , 7mer , 8mer , 9mer , 8mer+mismatch , 8mer+wobble</li>
+        <li><b>Bind Site Regions:</b> UTR3 and CDS</li>
+        <li><b>Number of Conserved Species (threshold):</b> 1 or more </li>
+        <li><b>Conserved Species:</b> Any of the available conserved species in the DB</li>
+      </ul>
+
+      <br>
+
+      <h4>3) Meaning of Colors of microRNA components</h4>
+
+      <div style= "background-color:red;" class="color_divs"></div> 1.0 <= score <= 0.9
+      <p></p>
+      <div style= "background-color:rgb(255, 102, 102);" class="color_divs"></div> 0.9 < score <= 0.8
+      <p></p>
+      <div style= "background-color:rgb(255, 128, 0);" class="color_divs"></div> 0.8 < score <= 0.7
+      <p></p>
+      <div style= "background-color:rgb(255, 178, 102);" class="color_divs"></div> 0.7 < score <= 0.6
+      <p></p>
+      <div style= "background-color:rgb(255, 255, 0);" class="color_divs"></div> 0.6 < score <= 0.5
+
+      <br><br>
+      <br>
+
+      <h4>4) Meaning of Colors of mRNA region components</h4>
+
+      <div style= "background-color:red;" class="color_divs"></div> 3'-UTR region
+      <p></p>
+      <div style= "background-color:blue;" class="color_divs"></div> CDS region
+      <p></p>
+      <div style= "background-color:green;" class="color_divs"></div> 5'-UTR region
+
+
+      <br><br>
+      <br>
+
+      <h4>5) Web Application Flow</h4>
+      <p>At the home page we have three possible inputs , and we have to fill one to continue ... </p>
+      <ul>
+        <li>Gene (Gene Ensembl ID or Gene Name)</li>
+        <li>Transcript (Ensembl Transcript ID)</li>
+        <li>microRNA (microRNA Name or microRNA ID)</li>
+      </ul>
+
+      <br>
+      <p><b>Case 1:</b> Input a Gene and observe the available transcripts that show up. Choose one of them and check the final results of your search.</p>
+      <p><b>Case 2:</b> Input a Transcript and direct check the final results of your search.</p>
+      <p><b>Case 3:</b> Input a microRNA and observe the available transcripts that show up ,along with extra information. Choose one from the list and check the final results of your search.</p>
+
+      <br>
+      <h4>6) Results Page - What we observe</h4>
+      <ul>
+        <li>On the chromosome we observe the location of the current gene , with a red vertical line.</li><p></p>
+        <li>Next, we observe the gene, along with its coordinates and arrows indicating the strand (left arrows - minus strand , right arrows - plus strand).</li><p></p>
+        <li>Below, we observe the whole transcript along with its coordinates and its regions (3'-UTR , CDS , 5'-UTR).</li>
+        <span>Leaving the mouse onto a region component, the coordinates of this region are shown up.</span><p></p>
+        <li>Next, we observe only the part of the transcript, where the microRNAs are bound.</li>
+        <span>Similarly , leaving the mouse onto a region component, the coordinates of that region are shown up. </span>
+        <p>The coordinates shown here, right and left of the partial-transcript are the coordinates of the transcript regions that are depicted.</p>
+        <li>Lastly, the microRNAs are displayed as small rectangular components. The color of the rectangular component indicates the score as it is described above. </li>
+        <span>Next to each microRNA component is either its name or its family name with bold letters.</span>
+        <p>In case a family name is shown instead of microRNA name, that means in that position, more than one microRNAS belonging to the same family, start their interaction with the
+          current miTG.</p>
+        <li>Leaving the mouse onto a microRNA rectangular component, useful information are shown up.</li>
+        <span>Clicking on a microRNA name , all the microRNAs belonging to the same miR family, as the one that was clicked, are noted with a rectangular.</span>
+      </ul>
+
+      <h4>7) Statistics</h4>
+        <p>In this part, we observe some statistical infrences, that are calculated on the fly, each time the user makes a new search.</p>
+
+  </div>
+
+
+  {% endblock %}
+
+</html>
+
+<!--
+[{u'merged_in_family': 0, u'num_species_conserved': [u'4'], u'bind_type': [u'8mer'], u'mirna_conn__mirna_sequence': [u'CUAUACAGUCUACUGUCUUUCC'], u'mirna_conn__mirna_family': u'let-7f-2-3p/1185-3p',
+u'bind_stop': [u'52770217'], u'same_family': 1, u'score': 0.875468093409912, u'chromosome': u'20', u'bind_start': u'52770210', u'mirna_conn__mirna_id': [u'MIMAT0004487'], u'bind_site': [u'UTR3'],
+u'mirna_name': [u'hsa-let-7f-2-3p'], u'transcript_id': u'ENST00000216862', u'species': [u'panTro2,rheMac2,loxAfr3,echTel1'], u'strand': u'-1'},
+
+{u'merged_in_family': 1, u'num_species_conserved': [u'4'], u'bind_type': [u'7mer'], u'mirna_conn__mirna_sequence': [u'CUAUACAGUCUACUGUCUUUCC', u'AUAUACAGGGGGAGACUCUUAU', u'AUAUACAGGGGGAGACUCUCAU'],
+u'mirna_conn__mirna_family': u'let-7f-2-3p/1185-3p', u'bind_stop': [u'52770046', u'52770046', u'52770046'], u'same_family': 1, u'score': 0.92981821849936, u'chromosome': u'20', u'bind_start': u'52770031',
+u'mirna_conn__mirna_id': [u'MIMAT0004487', u'MIMAT0022838', u'MIMAT0022713'], u'bind_site': [u'UTR3'], u'mirna_name': [u'hsa-let-7f-2-3p', u'hsa-miR-1185-1-3p', u'hsa-miR-1185-2-3p'],
+u'transcript_id': u'ENST00000216862', u'species': [u'panTro2,rheMac2,bosTau4,loxAfr3', u'panTro2,rheMac2,bosTau4,loxAfr3', u'panTro2,rheMac2,bosTau4,loxAfr3'], u'strand': u'-1'},
+
+{u'merged_in_family': 1, u'num_species_conserved': [u'2'], u'bind_type': [u'8mer'], u'mirna_conn__mirna_sequence': [u'AUAUACAGGGGGAGACUCUUAU', u'AUAUACAGGGGGAGACUCUCAU'],
+u'mirna_conn__mirna_family': u'let-7f-2-3p/1185-3p', u'bind_stop': [u'52770231', u'52770231'], u'same_family': 1, u'score': 0.92981821849936, u'chromosome': u'20', u'bind_start': u'52770209',
+u'mirna_conn__mirna_id': [u'MIMAT0022838', u'MIMAT0022713'], u'bind_site': [u'UTR3'], u'mirna_name': [u'hsa-miR-1185-1-3p', u'hsa-miR-1185-2-3p'], u'transcript_id': u'ENST00000216862',
+u'species': [u'panTro2,rheMac2', u'panTro2,rheMac2'], u'strand': u'-1'},
+
+{u'merged_in_family': 1, u'num_species_conserved': [u'6'], u'bind_type': [u'6mer'], u'mirna_conn__mirna_sequence': [u'AUAUACAGGGGGAGACUCUUAU', u'AUAUACAGGGGGAGACUCUCAU'],
+u'mirna_conn__mirna_family': u'let-7f-2-3p/1185-3p', u'bind_stop': [u'52770109', u'52770118'], u'same_family': 1, u'score': 0.92981821849936, u'chromosome': u'20', u'bind_start': u'52770099',
+u'mirna_conn__mirna_id': [u'MIMAT0022838', u'MIMAT0022713'], u'bind_site': [u'UTR3'], u'mirna_name': [u'hsa-miR-1185-1-3p', u'hsa-miR-1185-2-3p'], u'transcript_id': u'ENST00000216862',
+u'species': [u'panTro2,rheMac2,rn4,dasNov2,loxAfr3,echTel1', u'panTro2,rheMac2,rn4,dasNov2,loxAfr3,echTel1'], u'strand': u'-1'},
+
+{u'merged_in_family': 1, u'num_species_conserved': [u'8'], u'bind_type': [u'8mer'], u'mirna_conn__mirna_sequence': [u'UCCCUGAGACCCUUUAACCUGUGA', u'UCCCUGAGACCCUAACUUGUGA'],
+u'mirna_conn__mirna_family': u'miR-125-5p', u'bind_stop': [u'52771271', u'52771281'], u'same_family': 1, u'score': 0.990604535504565, u'chromosome': u'20', u'bind_start': u'52771264',
+u'mirna_conn__mirna_id': [u'MIMAT0000443', u'MIMAT0000423'], u'bind_site': [u'UTR3'], u'mirna_name': [u'hsa-miR-125a-5p', u'hsa-miR-125b-5p'], u'transcript_id': u'ENST00000216862',
+u'species': [u'panTro2,rheMac2,rn4,mm9,bosTau4,dasNov2,loxAfr3,monDom5', u'panTro2,rheMac2,rn4,mm9,bosTau4,dasNov2,loxAfr3,monDom5'], u'strand': u'-1'}]
+ -->
+
+
+<!-- Families interact with this miTG :  [u'let-7f-2-3p/1185-3p', u'miR-125-5p']
+
+ miR-125-5p  :  [u'hsa-miR-125a-5p', u'hsa-miR-125b-5p']
+
+ let-7f-2-3p/1185-3p  :  [u'hsa-let-7f-2-3p', u'hsa-let-7f-2-3p', u'hsa-miR-1185-1-3p', u'hsa-miR-1185-2-3p', u'hsa-miR-1185-1-3p', u'hsa-miR-1185-2-3p', u'hsa-miR-1185-1-3p', u'hsa-miR-1185-2-3p']  -->

@@ -1,0 +1,4 @@
+Django==1.11.11
+django-url-tools==0.0.8
+djangorestframework==3.8.1
+pytz==2018.3

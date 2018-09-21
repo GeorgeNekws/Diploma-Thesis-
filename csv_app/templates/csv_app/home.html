@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load static %}
+
+
+<!--Prepei na valw to js script sku2-p5.js sto telos gia na doulepsei -->
+
+
+
+<html>
+<head>
+  {% block head %}
+  <title>Home</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-red.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
+  <script src="{% static "csv_app/sku2-p5.js" %}" type="text/javascript"> </script>
+  {% endblock %}
+</head>
+
+{% block body %}
+  <header class="w3-container w3-theme w3-padding-16 w3-round-xlarge w3-opacity-min" id="myHeader">
+    <div class="w3-center">
+      <img id='logo-img' src="{% static 'csv_app/logo.png' %}" />
+      <h2 class="w3-xlarge header-font">DIANA TOOLS</h2>
+      <h3 class="w3-animate-bottom header-font">microRNA - miTG Visualization</h3>
+        <div class="w3-padding-8">
+          <!--<button class="w3-btn w3-xlarge w3-dark-grey w3-hover-light-grey" onclick="document.getElementById('id01').style.display='block'" style="font-weight:400;">Visualize</button>-->
+        </div>
+    </div>
+  </header>
+
+
+  <body id='home-body'>
+    <div class="container">
+      <!--<div class="topnav">
+        <a class="active" href="/csv_app/home">Home</a>
+        <a href="/csv_app/index2"><button class="w3-button w3-round-large">Visualization</button></a>
+      </div>-->
+      <form action="csv_app/my_data/" method="POST" id="post-form">{% csrf_token %}
+        <br>
+        <br>
+        <label> <h5>1. Enter a <b>human gene name (eg. "ZNF704")</b></h5> <h5>&emsp; or an <b>Ensembl gene (eg. "ENSG00000164684")</b>
+          <input type="text" id="post-text" name="q_search" placeholder="ENSG00000164684" value="{{ request.POST.q }}" /></h5>
+        </label>
+        <br>
+        <br>
+        <label> <h5>2. Enter an <b>Ensembl transcript (eg. "ENST00000327835")</b>
+          <input type="text" id="post-text" name="q_search" placeholder="ENST00000327835" value="{{ request.POST.q }}" /></h5>
+        </label>
+        <br>
+        <br>
+        <label> <h5>3. Enter a <b>microRNA (eg. "hsa-let-7a-5p")</b>
+          <input type="text" id="post-text" name="q_search" placeholder="hsa-let-7a-5p" value="{{ request.POST.q }}" /></h5>
+        </label>
+        <br>
+        <br>
+        <input type="submit" id= "input-button" class="btn btn-primary" value="Search"/>
+      </form>
+    </div>
+
+  </body>
+
+
+{% endblock %}
+
+</html>
+
+
+<!--
+<header class="w3-container w3-theme w3-padding-16" id="myHeader">
+
+<div class="w3-row" style='text-align:center;'>
+  <div class="w3-col w3-container" style="width:80px">
+    <img id='logo-img' src="{% static 'csv_app/logo.png' %}" />
+  </div>
+
+  <div class="w3-rest w3-container" >
+    <h3  style='margin:auto;'>microRNA - miTG Visualization</h3>
+    <h2 class="w3-xxlarge w3-animate-bottom">DIANA TOOLS</h2>
+    <div class="w3-padding-16">
+      <button  class="w3-btn w3-xlarge w3-dark-grey w3-hover-light-grey" onclick="document.getElementById('id01').style.display='block'" style="font-weight:400;">Visualize</button>
+    </div>
+  </div>
+
+</div>
+</header>-->

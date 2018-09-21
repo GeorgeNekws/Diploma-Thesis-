@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+
+{% block body %}
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+          {% for elem in data  %}
+
+            <form  id="form2" method="get" action="">
+                <ul>
+                  <li><b>Transcript ID :</b> {{elem.transcript_id}}</li>
+                  <li><b>Mirna Name that bind to this transcript:</b> {{elem.mirna_name}}</li>
+                  <li><b>Start bind site :</b> {{elem.bind_start}}</li>
+                  <li><b>Stop bind site :</b> {{elem.bind_stop}}</li>
+                </ul>
+              {% empty %}
+              <p>Not found.</p>
+            </form>
+
+          {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  {% load static %}
+  <!--<script src="{% static "csv_app/sketch.js" %}" type="text/javascript"></script>-->
+{% endblock %}
